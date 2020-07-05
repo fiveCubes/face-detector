@@ -36,7 +36,7 @@ class App extends React.Component
     this.state = {
       input:'',
       imageUrl:'',
-      box:'',
+      box:[],
       route:'signin',
       isSignedIn:false,
       user: {
@@ -63,25 +63,51 @@ class App extends React.Component
    }})
    //console.log(this.state);  
  }
-  calculateFaceLocation=(data)=>
+
+  calculateEachFace=(clarifiFace)=>
   {
-    
-    const clarifiFace=data.outputs[0].data.regions[0].region_info.bounding_box;
     const img = document.getElementById('face');
     const width=Number(img.width);
     const height = Number(img.height);
-    //console.log(width , height);
+
     return {
       leftCol: clarifiFace.left_col * width,
       topRow : clarifiFace.top_row * height,
       rightCol: width - (clarifiFace.right_col*width),
-      bottomRow: height -(clarifiFace.bottom_row * height)  
+      bottomRow: height -(clarifiFace.bottom_row * height) 
+       
     }
+
+  }
+  calculateFaceLocation=(data)=>
+  {
+   
+    const regions = data.outputs[0].data.regions;
+    //const clarifiFace=data.outputs[0].data.regions[0].region_info.bounding_box;
+    let box=[]
+    for(let i=0 ; i < regions.length ; i++)
+    {
+     box.push(this.calculateEachFace(regions[i].region_info.bounding_box));
+    }
+    return box;
+
+    // const img = document.getElementById('face');
+    // const width=Number(img.width);
+    // const height = Number(img.height);
+    // //console.log(width , height);
+    // return {
+    //   leftCol: clarifiFace.left_col * width,
+    //   topRow : clarifiFace.top_row * height,
+    //   rightCol: width - (clarifiFace.right_col*width),
+    //   bottomRow: height -(clarifiFace.bottom_row * height)  
+    // }
   }
 
   displayFacebox=(box)=>
   { 
+  
      this.setState({box:box});
+    
   }
 
   onInputChange= (event)=>{
