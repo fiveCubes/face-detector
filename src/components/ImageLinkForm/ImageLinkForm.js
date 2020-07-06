@@ -8,8 +8,8 @@ class ImageLinkForm extends Component{
         //console.log(this.props);
         return (
             <div>
-                <p className='f3'>
-                    {'This magic Brain will detect faces in your pictures'}
+                <p className='f5'>
+                    {'To test, copy paste any image link to detect the faces in the picture'}
                 </p>
                 <div className='center'>
                     <div className="center form pa4 br3 shadow-3">

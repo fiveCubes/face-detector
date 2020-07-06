@@ -16,7 +16,7 @@ class FaceRecognition extends Component{
         return (
             <div className="center ma">
             <div className="absolute mt2">
-                <img id="face" src={this.props.imageSrc} alt="faceimage" width='500px' height='auto'></img>
+                <img id="face" src={this.props.imageSrc} alt='' width='500px' height='auto'></img>
                 {faces}
                 {/* <div className="bounding-box" style={{top:box.topRow, right:box.rightCol, bottom:box.bottomRow ,left: box.leftCol}}>     */}
                 {/* </div> */}

@@ -27,26 +27,27 @@ const particlesOption={
   }
 }
 
+const intialstate = {
+  input:'',
+  imageUrl:'',
+  box:[],
+  route:'signin',
+  isSignedIn:false,
+  user: {
+    id:'',
+    name:'',
+    email:'',
+    entries:'',
+    joined:''
+  }
+}
 class App extends React.Component
 {
 
   constructor()
   {
     super();
-    this.state = {
-      input:'',
-      imageUrl:'',
-      box:[],
-      route:'signin',
-      isSignedIn:false,
-      user: {
-        id:'',
-        name:'',
-        email:'',
-        entries:'',
-        joined:''
-      }
-    }
+    this.state = intialstate;
   }
 
   
@@ -130,8 +131,9 @@ class App extends React.Component
       method:'put',
       headers: {'content-Type':'application/json'},
       body:JSON.stringify({id:this.state.user.id})
-    }).then(txt => txt.json()).then(entries => this.setState(Object.assign(this.state.user,{entries:entries})))
-      console.log(response)
+    }).then(txt => txt.json())
+    .then(entries => this.setState(Object.assign(this.state.user,{entries:entries})))
+    .catch(console.log)
       this.displayFacebox(this.calculateFaceLocation(response))
     }
       )
@@ -152,7 +154,8 @@ class App extends React.Component
     
     if(route ==='signout')
     {
-      this.setState({isSignedIn:false});
+      this.setState(intialstate);
+
     }
     else if(route==='home')
     {
